@@ -60,7 +60,7 @@ followed by The Spicy Italian Pizza (4.25%) and The Italian Supreme Pizza (4.12%
 - **Consistent Demand Across Offerings:** Revenue contribution among the top 10 items is tightly grouped, 
 panning from 3.81% for The Sicilian Pizza to 5.31% for The Thai Chicken Pizza.
 
-![contributition_in_revenue](assets\top_10_pizza_conn_to_total_revenue.png)
+![contributition_in_revenue](assets/top_10_pizza_conn_to_total_revenue.png)
 
 ### 2. Commutative revenue
 To fetch commutative revenue I created a sub-query to get the total revenue and 
@@ -90,7 +90,7 @@ GROUP BY
         daily revenue stabilized into a highly predictable range of $2,150 to $2,370 per day, resulting in a steady, constant slope on the cumulative growth chart.
 - **Lowest Single Day:** Revenue dipped to its annual low on March 22, 2015 at $1,259.25.
 
-![commutative_revenue](assets\commulative_revenue.png)
+![commutative_revenue](assets/commulative_revenue.png)
 
 ### 3. Top 3 Pizzas by categorey
 To understand top 3 pizzas I created  category_revenue CTE that calculates total revenue for each pizza by multiplying quantity × price.Then created a rank_revenue CTE that ranks pizzas within each category, then keeps the top 3 using RANK().
@@ -157,7 +157,7 @@ and The Five Cheese Pizza ($28,286.50) lag behind the $30,000 threshold.
 - The Mexicana Pizza: $28,650.75
 - The Five Cheese Pizza: $28,286.50
 
-![top_3_pizzas](assets\top_3_pizza_revenue_by_categoerey.png)
+![top_3_pizzas](assets/top_3_pizza_revenue_by_categoerey.png)
 
 ### 4. Peak Sales hours
 To understand the top sale hours I extracted  the hour component from the order timestamp, count total 
@@ -184,7 +184,7 @@ ORDER BY
 recording under 30 orders combined.
 
 
-![order_by_hours_of_day](assets\hourly_demand.png)
+![order_by_hours_of_day](assets/hourly_demand.png)
 
 ### 5. Most Ordered Pizzas (Top 5)
 To understand the top 5 most ordered pizzas I Join pizza metadata with order details, aggregate total quantity per pizza type, and rank the top 5 records in descending order..
