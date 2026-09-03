@@ -5,12 +5,13 @@
                   overall revenue, multiply by 100, and format as a percentage.
 */
 
+use pizza_hut;
 SELECT
     pt.name AS pizza_type_name,
     ROUND(
         (SUM(od.quantity * p.price) * 100.0) / 
         (SELECT SUM(od_sub.quantity * p_sub.price) 
-         FROM order_details od_sub 
+         FROM order_details  od_sub
          JOIN pizzas p_sub ON od_sub.pizza_id = p_sub.pizza_id), 
         2
     ) AS percentage_contribution

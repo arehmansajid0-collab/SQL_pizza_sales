@@ -20,7 +20,7 @@ INNER JOIN orders ON order_details.order_id = orders.order_id
 INNER JOIN pizzas ON order_details.pizza_id = pizzas.pizza_id
 GROUP BY
     date) AS revenue
-
+;
 /* 
 /////////////////////////////////////       KEY INSIGHTS        /////////////////////////////////////
     =>  Total Annual Revenue: Total cumulative revenue reached $875,433.50 across 358 recorded days in 2015.
