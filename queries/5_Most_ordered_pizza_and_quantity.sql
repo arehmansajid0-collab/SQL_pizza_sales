@@ -5,7 +5,7 @@
     METHODOLOGY : Join pizza metadata with order details, aggregate total quantity per 
                   pizza type, and rank the top 5 records in descending order.
 */
-
+use pizza_hut;
 SELECT
     pt.name AS pizza_name,
     SUM(od.quantity) AS total_quantity_ordered

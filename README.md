@@ -27,7 +27,7 @@ For my deep dive into the data analyst job market, I harnessed the power of seve
 ## Data Analysis & Insights
 Each query for this project aimed at investigating top selling pizzas , specific pizza type and its categorey and its contribution in net revenue. Here’s how I approached each question:
 ### 1. Contributition in revenue
- TO get percentage contributition of top 10  pizza I multiplied price by quantity for revenue per pizza type, divide by total overall revenue, multiply by 100, and format as a percentage.
+ To get percentage contributition of top 10  pizza I multiplied price by quantity for revenue per pizza type, divide by total overall revenue, multiply by 100, and format as a percentage.
 
 ````sql
 SELECT
@@ -92,7 +92,7 @@ GROUP BY
 
 ![commutative_revenue](assets\commulative_revenue.png)
 
-### 3. Top 3 Pizzas 
+### 3. Top 3 Pizzas by categorey
 To understand top 3 pizzas I created  category_revenue CTE that calculates total revenue for each pizza by multiplying quantity × price.Then created a rank_revenue CTE that ranks pizzas within each category, then keeps the top 3 using RANK().
 
 ````sql
@@ -157,4 +157,71 @@ and The Five Cheese Pizza ($28,286.50) lag behind the $30,000 threshold.
 - The Mexicana Pizza: $28,650.75
 - The Five Cheese Pizza: $28,286.50
 
-![commutative_revenue](assets\commulative_revenue.png)
+![top_3_pizzas](assets\top_3_pizza_revenue_by_categoerey.png)
+
+### 4. Peak Sales hours
+To understand the top sale hours I extracted  the hour component from the order timestamp, count total 
+orders for each hour, and group results by hour.
+
+````sql
+SELECT
+    HOUR(o.time) AS order_hour,
+    COUNT(o.order_id) AS total_orders
+FROM
+    orders o
+GROUP BY
+    order_hour
+ORDER BY
+    total_orders DESC;
+````
+**HERE IS THE BREAKDOWN OF PEAK SALES HOURS**
+
+- **Bimodal Peak Pattern:** Orders follow a distinct two-peak distribution corresponding to meal hours:
+- **Lunch Peak (12:00 PM – 1:00 PM):** Peak volume reaches 2,520 orders at 12:00 PM and remains high at 2,455 orders at 1:00 PM.
+- **Dinner Peak (5:00 PM – 6:00 PM):** A secondary surge occurs during dinner hours,peaking at 2,399 orders at 6:00 PM and 2,336 orders at 5:00 PM.
+- **Core Operating Window:** Over 73% of total orders occur between 12:00 PM and 7:00 PM.
+- **Off-Peak Operations:** Early morning (9:00 AM – 10:00 AM) and late night (11:00 PM) experience minimal activity, 
+recording under 30 orders combined.
+
+
+![order_by_hours_of_day](assets\hourly_demand.png)
+
+### 5. Most Ordered Pizzas (Top 5)
+To understand the top 5 most ordered pizzas I Join pizza metadata with order details, aggregate total quantity per pizza type, and rank the top 5 records in descending order..
+
+````sql
+SELECT
+    pt.name AS pizza_name,
+    SUM(od.quantity) AS total_quantity_ordered
+FROM
+    pizza_types pt
+INNER JOIN 
+    pizzas p ON pt.pizza_type_id = p.pizza_type_id 
+INNER JOIN 
+    order_details od ON od.pizza_id = p.pizza_id
+GROUP BY
+    pt.name
+ORDER BY
+    total_quantity_ordered DESC
+LIMIT 5;
+````
+
+| Pizza Name                    |Total Orders   |
+|-------------------------------|--------------:|
+| The Pepperoni Pizza           | 2624          |
+| The Classic Deluxe Pizza      | 2609          |  
+| The Barbecue Chicken Pizza    | 2602          |
+| The Barbecue Chicken Pizza    | 2573          |
+| The Barbecue Chicken Pizza    | 2540          |
+
+*This is the table of the top 5 most selling pizzas*
+
+**HERE IS THE BREAKDOWN OF PEAK SALES HOURS**
+
+- **Consistent High Demand Across Top Tier:** All five top-selling pizzas perform within a tight range of 2,540 to 2,624 units,representing a total volume of 12,948 pizzas across these top items.
+- **Top Performer:** The Pepperoni Pizza leads sales at 2,624 units, closely followed by The Classic Deluxe Pizza at 2,609 units (a minimal difference of only 15 units).
+Balanced Flavor Preferences:
+- **Classic & Meat Favorites:** Pepperoni, Classic Deluxe, and Hawaiian remain steady customer essentials.
+- **Specialty Chicken Demand:** Barbecue Chicken (2,602 units) and Thai Chicken (2,540 units) show strong, reliable demand for chicken-based offerings.
+- **Tight Sales Spread:** The variance between the #1 seller (Pepperoni) and the #5 seller (Thai Chicken) is only 84 units (3.2%),indicating consistent preference for all top 5 menu offerings rather than reliance on a single dominant product.
+
