@@ -211,8 +211,8 @@ LIMIT 5;
 | The Pepperoni Pizza           | 2624          |
 | The Classic Deluxe Pizza      | 2609          |  
 | The Barbecue Chicken Pizza    | 2602          |
-| The Barbecue Chicken Pizza    | 2573          |
-| The Barbecue Chicken Pizza    | 2540          |
+|  The Hawaiian Pizza           | 2573          |
+| The Thai Chicken Pizza        | 2540          |
 
 *This is the table of the top 5 most selling pizzas*
 
